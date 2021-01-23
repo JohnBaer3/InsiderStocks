@@ -9,7 +9,6 @@ import Foundation
 import Starscream
 import Alamofire
 
-
 class SECapi{
     let payload : Dictionary<String, Any> = [
         "query": [
@@ -45,51 +44,19 @@ class SECapi{
     
     
     func callAPI(_ completionHandler:@escaping (_ success:Bool,_ response:String,_ httpResponseStatusCode:Int) -> Void){
-        let request = NSMutableURLRequest(url: API,
-                                          cachePolicy: .useProtocolCachePolicy,timeoutInterval: 10.0)
-        request.httpMethod = "POST"
-        request.allHTTPHeaderFields = headers
         
-        //Convert postData to a JSONObject?
-        if let data = try? JSONSerialization.data(withJSONObject: payload, options: .prettyPrinted),
-           let jsonString = String(data: data, encoding: .utf8) {
-               request.httpBody = jsonString.data(using: .utf8)
-//            print(jsonString.data(using: .utf8))
-        }
-        
-        
+        AF.request(API, method: .post, parameters: payload, encoding: JSONEncoding.default, headers: nil).responseJSON {
+        response in
+          switch response.result {
+                        case .success:
+                            print(response)
 
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-            if (error != nil) {
-                print(error)
-            } else {
+                            break
+                        case .failure(let error):
 
-                DispatchQueue.main.async(execute: {
-
-                    if let json = (try? JSONSerialization.jsonObject(with: data!, options: [])) as? Dictionary<String,AnyObject>
-                    {
-                        let status = json["status"] as? Int;
-                        if(status == 1)
-                        {
-                            print("SUCCESS....")
-                            print(json)
-                            if let CartID = json["CartID"] as? Int {
-                                DispatchQueue.main.async(execute: {
-
-                                    print("INSIDE CATEGORIES")
-                                    print("CartID:\(CartID)")
-//                                        self.addtocartdata.append(Addtocartmodel(json:json))
-                                })
-                            }
+                            print(error)
                         }
-                    }
-                })
-                print("hmm")
-            }
-            print("here")
-        })
-        print("end")
+        }
 
     }
 }

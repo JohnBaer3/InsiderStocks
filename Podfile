@@ -8,7 +8,11 @@ target 'Insider' do
   # Pods for Insider
   pod 'Starscream', '~> 4.0.0'
 
-  pod 'Alamofire', '~> 5.2'
+  pod 'Alamofire', '~> 5.2.2'
+  pod 'AlamofireObjectMapper', '~> 6.0.0'
+  pod 'ObjectMapper', '~> 3.5'
+
+
 
   target 'InsiderTests' do
     inherit! :search_paths
