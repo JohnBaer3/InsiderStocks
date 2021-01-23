@@ -7,19 +7,34 @@
 
 import Foundation
 import Starscream
-
-let payload: [String: Any] = [
-    "query": ["query_string": [ "query": "cik:320193 AND filedAt:{2016-01-01 TO 2016-12-31} AND formType:\"10-Q\"" ]],
-    "from": "0",
-    "size": "10",
-    "sort": [["filedAt": ["order": "desc"]]]
-]
-
+import Alamofire
 
 
 class SECapi{
+    let payload : Dictionary<String, Any> = [
+        "query": [
+            "query_string": [
+                "query": "cik:320193 AND filedAt:{2016-01-01 TO 2016-12-31} AND formType:\"10-Q\""
+            ]
+        ],
+        "from": "0",
+        "size": "10",
+        "sort": [
+            ["filedAt":
+                ["order": "desc"]
+            ]
+        ]
+    ]
+
+    
     let TOKEN = "6e66d2987314d70b3caa7d2d5c5ec2b294223ff84de46592315857264bf7d621"
     let API: URL
+    
+    let headers = [
+        "Content-Type": "application/json; charset=utf-8",
+    ]
+    
+
     
     public var checker = "bla"
     
@@ -27,51 +42,55 @@ class SECapi{
         self.API = URL(string: "https://api.sec-api.io?token=" + TOKEN)!
     }
     
+    
+    
     func callAPI(_ completionHandler:@escaping (_ success:Bool,_ response:String,_ httpResponseStatusCode:Int) -> Void){
-        var request = URLRequest(url: API)
-
-//        let DicObject: NSMutableDictionary = NSMutableDictionary()
-//              DicObject.setValue("cf", forKey: "a")
-//              DicObject.setValue("", forKey: "scs")
-//              DicObject.setValue("Uploads/" + nameOfFile, forKey:"p")
-
+        let request = NSMutableURLRequest(url: API,
+                                          cachePolicy: .useProtocolCachePolicy,timeoutInterval: 10.0)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = headers
         
-        
-        
-        
-        do{
-            let jsonData = try JSONSerialization.data(withJSONObject: payload, options: .prettyPrinted)
-            if let encoded = String(data: jsonData, encoding: .utf8){
-                //Add headers to the request
-                request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                request.httpMethod = "POST"
-                
-                
-                //This has to be bytes                
-                if let data = try? JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted),
-                   let jsonString = String(data: data, encoding: .utf8) {
-                       request.httpBody = jsonString.data(using: .utf8)
-                }
-                
-                
-                print("top of the function")
-                let task = URLSession.shared.dataTask(with: request) {(datar, response, error) in
-                    guard let data = datar else { return }
-                    print(String(data: data, encoding: .utf8)!)
-                    print("here ", response)
-                    print("here ", error)
-                    let responseString = String(data: datar!, encoding: .utf8)
-                    completionHandler(true, responseString ?? "hmmmm", 2)
-                    self.checker = responseString ?? "ble" + " bla "
-                }
-                completionHandler(false, "error", 0)
-            }
-            print("out of the call")
-        }catch{
-            print("json conversion failed")
+        //Convert postData to a JSONObject?
+        if let data = try? JSONSerialization.data(withJSONObject: payload, options: .prettyPrinted),
+           let jsonString = String(data: data, encoding: .utf8) {
+               request.httpBody = jsonString.data(using: .utf8)
+//            print(jsonString.data(using: .utf8))
         }
-        print("Reached end of function")
         
+        
+
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+            if (error != nil) {
+                print(error)
+            } else {
+
+                DispatchQueue.main.async(execute: {
+
+                    if let json = (try? JSONSerialization.jsonObject(with: data!, options: [])) as? Dictionary<String,AnyObject>
+                    {
+                        let status = json["status"] as? Int;
+                        if(status == 1)
+                        {
+                            print("SUCCESS....")
+                            print(json)
+                            if let CartID = json["CartID"] as? Int {
+                                DispatchQueue.main.async(execute: {
+
+                                    print("INSIDE CATEGORIES")
+                                    print("CartID:\(CartID)")
+//                                        self.addtocartdata.append(Addtocartmodel(json:json))
+                                })
+                            }
+                        }
+                    }
+                })
+                print("hmm")
+            }
+            print("here")
+        })
+        print("end")
+
     }
 }
 
