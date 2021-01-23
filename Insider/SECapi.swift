@@ -8,58 +8,69 @@
 import Foundation
 import Starscream
 
-struct payload: Encodable{
-    enum CodingKeys: String, CodingKey {
-        case query
-        case from
-        case size
-        case sort
-    }
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(["query_string" : ["query": "cik:320193 AND filedAt:{2016-01-01 TO 2016-12-31} AND formType:\"10-Q\""]], forKey: .query)
-        try container.encode("0", forKey: .from)
-        try container.encode("10", forKey: .size)
-        try container.encode(["filledAt": ["order": "desc"]], forKey: .sort)
-    }
-}
+let payload: [String: Any] = [
+    "query": ["query_string": [ "query": "cik:320193 AND filedAt:{2016-01-01 TO 2016-12-31} AND formType:\"10-Q\"" ]],
+    "from": "0",
+    "size": "10",
+    "sort": [["filedAt": ["order": "desc"]]]
+]
+
 
 
 class SECapi{
     let TOKEN = "6e66d2987314d70b3caa7d2d5c5ec2b294223ff84de46592315857264bf7d621"
     let API: URL
     
+    public var checker = "bla"
     
     init(){
         self.API = URL(string: "https://api.sec-api.io?token=" + TOKEN)!
     }
     
-    func callAPI(){
+    func callAPI(_ completionHandler:@escaping (_ success:Bool,_ response:String,_ httpResponseStatusCode:Int) -> Void){
         var request = URLRequest(url: API)
-        let encoder = JSONEncoder()
-        let payloader = payload()
-        if let jsonData = try? encoder.encode(payloader) {
-            if String(data: jsonData, encoding: .utf8) != nil {
 
+//        let DicObject: NSMutableDictionary = NSMutableDictionary()
+//              DicObject.setValue("cf", forKey: "a")
+//              DicObject.setValue("", forKey: "scs")
+//              DicObject.setValue("Uploads/" + nameOfFile, forKey:"p")
+
+        
+        
+        
+        
+        do{
+            let jsonData = try JSONSerialization.data(withJSONObject: payload, options: .prettyPrinted)
+            if let encoded = String(data: jsonData, encoding: .utf8){
                 //Add headers to the request
                 request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                request.addValue(String(jsonData.count), forHTTPHeaderField: "Content-Length")
-
-                print("hm")
-                request.httpBody = jsonData
-
-                let task = URLSession.shared.dataTask(with: request) {(data, response, error) in
-                    guard let data = data else { return }
-                    print(String(data: data, encoding: .utf8)!)
-                    print(response)
-                    print(error)
+                request.httpMethod = "POST"
+                
+                
+                //This has to be bytes                
+                if let data = try? JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted),
+                   let jsonString = String(data: data, encoding: .utf8) {
+                       request.httpBody = jsonString.data(using: .utf8)
                 }
+                
+                
+                print("top of the function")
+                let task = URLSession.shared.dataTask(with: request) {(datar, response, error) in
+                    guard let data = datar else { return }
+                    print(String(data: data, encoding: .utf8)!)
+                    print("here ", response)
+                    print("here ", error)
+                    let responseString = String(data: datar!, encoding: .utf8)
+                    completionHandler(true, responseString ?? "hmmmm", 2)
+                    self.checker = responseString ?? "ble" + " bla "
+                }
+                completionHandler(false, "error", 0)
             }
+            print("out of the call")
+        }catch{
+            print("json conversion failed")
         }
-        
-        task.resume()
-
-        print("hmm")
+        print("Reached end of function")
         
     }
 }
