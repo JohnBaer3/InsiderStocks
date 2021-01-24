@@ -20,9 +20,6 @@
                                 <rect key="frame" x="216" y="194" width="42" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="check"/>
-                                <connections>
-                                    <action selector="checkerClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AHF-03-0dz"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRh-tw-14N">
                                 <rect key="frame" x="125" y="268" width="48" height="30"/>
