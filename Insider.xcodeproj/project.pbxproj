@@ -11,7 +11,6 @@
 		A038F1C00CD38CEDE4A28F7A /* Pods_Insider_InsiderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 546A131CD3AA4217D9D48687 /* Pods_Insider_InsiderUITests.framework */; };
 		CB4D066225B8AA6900C4AB18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D066125B8AA6900C4AB18 /* AppDelegate.swift */; };
 		CB4D066425B8AA6900C4AB18 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D066325B8AA6900C4AB18 /* SceneDelegate.swift */; };
-		CB4D066625B8AA6900C4AB18 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D066525B8AA6900C4AB18 /* ViewController.swift */; };
 		CB4D066925B8AA6900C4AB18 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB4D066725B8AA6900C4AB18 /* Main.storyboard */; };
 		CB4D066C25B8AA6900C4AB18 /* Insider.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CB4D066A25B8AA6900C4AB18 /* Insider.xcdatamodeld */; };
 		CB4D066E25B8AA6B00C4AB18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB4D066D25B8AA6B00C4AB18 /* Assets.xcassets */; };
@@ -22,6 +21,7 @@
 		CB4D06BF25BD566700C4AB18 /* Form4XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D06BE25BD566700C4AB18 /* Form4XMLParser.swift */; };
 		CB4D06D925BF7FE700C4AB18 /* MainTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D06D825BF7FE700C4AB18 /* MainTVC.swift */; };
 		CB4D06DE25BF83EE00C4AB18 /* StockDisplayTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D06DD25BF83EE00C4AB18 /* StockDisplayTVCell.swift */; };
+		CB4D06E925BF88F300C4AB18 /* TradeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D06E825BF88F300C4AB18 /* TradeInformation.swift */; };
 		FBBE51FF8DE816F488E8F5C7 /* Pods_Insider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1D83398D192CC414A391191 /* Pods_Insider.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +55,6 @@
 		CB4D065E25B8AA6900C4AB18 /* Insider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Insider.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB4D066125B8AA6900C4AB18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB4D066325B8AA6900C4AB18 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CB4D066525B8AA6900C4AB18 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CB4D066825B8AA6900C4AB18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CB4D066B25B8AA6900C4AB18 /* Insider.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Insider.xcdatamodel; sourceTree = "<group>"; };
 		CB4D066D25B8AA6B00C4AB18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -71,6 +70,7 @@
 		CB4D06BE25BD566700C4AB18 /* Form4XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form4XMLParser.swift; sourceTree = "<group>"; };
 		CB4D06D825BF7FE700C4AB18 /* MainTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTVC.swift; sourceTree = "<group>"; };
 		CB4D06DD25BF83EE00C4AB18 /* StockDisplayTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDisplayTVCell.swift; sourceTree = "<group>"; };
+		CB4D06E825BF88F300C4AB18 /* TradeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeInformation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,9 +152,9 @@
 				CB4D066725B8AA6900C4AB18 /* Main.storyboard */,
 				CB4D06D825BF7FE700C4AB18 /* MainTVC.swift */,
 				CB4D06DD25BF83EE00C4AB18 /* StockDisplayTVCell.swift */,
-				CB4D066525B8AA6900C4AB18 /* ViewController.swift */,
 				CB4D06A225B8AB4000C4AB18 /* SECapi.swift */,
 				CB4D06BE25BD566700C4AB18 /* Form4XMLParser.swift */,
+				CB4D06E825BF88F300C4AB18 /* TradeInformation.swift */,
 				CB4D066125B8AA6900C4AB18 /* AppDelegate.swift */,
 				CB4D066325B8AA6900C4AB18 /* SceneDelegate.swift */,
 				CB4D066D25B8AA6B00C4AB18 /* Assets.xcassets */,
@@ -421,7 +421,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB4D066625B8AA6900C4AB18 /* ViewController.swift in Sources */,
 				CB4D06BF25BD566700C4AB18 /* Form4XMLParser.swift in Sources */,
 				CB4D066225B8AA6900C4AB18 /* AppDelegate.swift in Sources */,
 				CB4D06D925BF7FE700C4AB18 /* MainTVC.swift in Sources */,
@@ -429,6 +428,7 @@
 				CB4D066425B8AA6900C4AB18 /* SceneDelegate.swift in Sources */,
 				CB4D06A325B8AB4000C4AB18 /* SECapi.swift in Sources */,
 				CB4D06DE25BF83EE00C4AB18 /* StockDisplayTVCell.swift in Sources */,
+				CB4D06E925BF88F300C4AB18 /* TradeInformation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

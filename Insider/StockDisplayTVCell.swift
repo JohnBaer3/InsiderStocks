@@ -17,12 +17,29 @@ class StockDisplayTVCell: UITableViewCell {
     @IBOutlet weak var dollarChange: UILabel!
     @IBOutlet weak var percentChange: UILabel!
     
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    func populate(_ tradeInfo: TradeInformation){
+        companyTicker.text = tradeInfo.ticker
+        stockTotalDollars.text = tradeInfo.valueOfStockInDollars
+        companyName.text = tradeInfo.companyName
+        insiderName.text = tradeInfo.insiderName
+        dollarChange.text = tradeInfo.tradeQty
+        let companyPositionText = companyPositions(tradeInfo.companyPosition)
+        insiderPosition.text = companyPositionText
+        percentChange.text = "TBD"
     }
 
+    func companyPositions(_ positions: [String]?) -> String{
+        var companyPositionText = ""
+        for position in positions ?? [""]{
+            companyPositionText += position
+            companyPositionText += ", "
+        }
+        if companyPositionText.count > 3{
+            companyPositionText = String(companyPositionText.dropLast(2))
+        }
+        return companyPositionText
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

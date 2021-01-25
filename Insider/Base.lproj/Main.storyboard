@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qqg-vW-wpn">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,9 +15,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="R6u-LU-huJ">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="74"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ic0-BJ-d2K">
+                                    <rect key="frame" x="0.0" y="-9" width="414" height="56"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="Ic0-BJ-d2K" firstAttribute="centerX" secondItem="R6u-LU-huJ" secondAttribute="centerX" id="aEy-TB-vdX"/>
+                                <constraint firstItem="Ic0-BJ-d2K" firstAttribute="leading" secondItem="R6u-LU-huJ" secondAttribute="leading" id="bY0-9Y-tF7"/>
+                                <constraint firstItem="Ic0-BJ-d2K" firstAttribute="top" secondItem="R6u-LU-huJ" secondAttribute="top" constant="-9" id="y7t-Aj-zQh"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="stockDisplayTVCell" rowHeight="87" id="RBP-pr-XNg" customClass="StockDisplayTVCell" customModule="Insider" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="87"/>
+                                <rect key="frame" x="0.0" y="102" width="414" height="87"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RBP-pr-XNg" id="LU5-MN-W35">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="87"/>

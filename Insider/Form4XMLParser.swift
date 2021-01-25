@@ -10,7 +10,7 @@ import SwiftyXMLParser
 
 class Form4XMLParser: NSObject {
     
-    class func parseXML(_ xmlURL: String, completionHandler: @escaping (xmlResult?, Error?) -> Void) {
+    class func parseXML(_ xmlURL: String, completionHandler: @escaping (TradeInformation?, Error?) -> Void) {
         let url = URL(string: xmlURL)!
         
         //open the xml -> get the data from
@@ -58,7 +58,7 @@ class Form4XMLParser: NSObject {
 //            TODO: get the other's name   if isOther == "1" { companyPositions.append("Director") }
             if officerTitle != "" { companyPositions.append(officerTitle) }
             
-            let tradeDetails = xmlResult.init(ticker: ticker, companyName: companyName, insiderName: insiderName, companyPosition: companyPositions, tradeType: tradeType, tradePrice: tradePrice, tradeQty: tradeQty, stockCountOwnedAfter: stockCountOwnedAfter, valueOfStockInDollars: valueOfStockInDollars, stockCountPercentChange: "unimplemented")
+            let tradeDetails = TradeInformation.init(ticker: ticker, companyName: companyName, insiderName: insiderName, companyPosition: companyPositions, tradeType: tradeType, tradePrice: tradePrice, tradeQty: tradeQty, stockCountOwnedAfter: stockCountOwnedAfter, valueOfStockInDollars: valueOfStockInDollars, stockCountPercentChange: "unimplemented")
             
             completionHandler(tradeDetails, nil)
         }
@@ -66,16 +66,3 @@ class Form4XMLParser: NSObject {
     }
 }
 
-
-struct xmlResult{
-    var ticker: String?
-    var companyName: String?
-    var insiderName: String?
-    var companyPosition: [String]?
-    var tradeType: String?
-    var tradePrice: String?
-    var tradeQty: String?
-    var stockCountOwnedAfter: String?
-    var valueOfStockInDollars: String?
-    var stockCountPercentChange: String?
-}
