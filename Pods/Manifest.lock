@@ -1,20 +1,32 @@
 PODS:
   - Alamofire (5.2.2)
   - Starscream (4.0.4)
+  - SwiftyXMLParser (5.1.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.2)
+  - Alamofire (~> 5.2.2)
   - Starscream (~> 4.0.0)
+  - SwiftyXMLParser (from `https://github.com/yahoojapan/SwiftyXMLParser.git`)
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Starscream
 
+EXTERNAL SOURCES:
+  SwiftyXMLParser:
+    :git: https://github.com/yahoojapan/SwiftyXMLParser.git
+
+CHECKOUT OPTIONS:
+  SwiftyXMLParser:
+    :commit: ec7f183642adf429babd867d1a38c5c6912408ba
+    :git: https://github.com/yahoojapan/SwiftyXMLParser.git
+
 SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
+  SwiftyXMLParser: 23b5a9321a8adf72aae29046ea58c3d097b4ac17
 
-PODFILE CHECKSUM: a53d71ea2d30e7773948dd4cd99f86f4484476dc
+PODFILE CHECKSUM: 7dde894c84093d4da07344a9a592bedb31b3a6d5
 
 COCOAPODS: 1.9.3
