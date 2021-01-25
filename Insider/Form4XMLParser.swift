@@ -10,7 +10,7 @@ import SwiftyXMLParser
 
 class Form4XMLParser: NSObject {
     
-    class func requestSong(_ xmlURL: String, completionHandler: @escaping (String?, String?, Error?) -> Void) {
+    class func parseXML(_ xmlURL: String, completionHandler: @escaping (xmlResult?, Error?) -> Void) {
         let url = URL(string: xmlURL)!
         
         //open the xml -> get the data from
@@ -18,14 +18,11 @@ class Form4XMLParser: NSObject {
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 DispatchQueue.main.async {
-                    completionHandler(nil, nil, error)
+                    completionHandler(nil, error)
                 }
                 return
             }
             let xmlString = String(decoding: data, as: UTF8.self)
-            
-            print(xmlString)
-            
             let xml = try! XML.parse(xmlString)
 
             // access xml element
@@ -35,12 +32,14 @@ class Form4XMLParser: NSObject {
             let isDirector = String(xml["ownershipDocument", "reportingOwner", 0, "reportingOwnerRelationship", "isDirector"].text ?? "0")
             let isOfficer = String(xml["ownershipDocument", "reportingOwner", 0, "reportingOwnerRelationship", "isOfficer"].text ?? "0")
             let isTenPercentOwner = String(xml["ownershipDocument", "reportingOwner", 0, "reportingOwnerRelationship", "isTenPercentOwner"].text ?? "0")
-            let isOther = String(xml["ownershipDocument", "reportingOwner", 0, "reportingOwnerRelationship", "isOther"].text ?? "0")
+//            let isOther = String(xml["ownershipDocument", "reportingOwner", 0, "reportingOwnerRelationship", "isOther"].text ?? "0")
             let officerTitle = String(xml["ownershipDocument", "reportingOwner", 0, "reportingOwnerRelationship", "officerTitle"].text ?? "")
             
             // TODO: Right now I can't think of a clean way to condense multiple trades in one form. So I will just parse
             //       the first trade only
-            let tradeInfo = String(xml["ownershipDocument", "nonDerivativeTable", "nonDerivativeTransaction", 0, "transactionAmounts", "transactionAcquiredDisposedCode", "value"].text ?? "--")
+            
+            //A for acquiration, D for disposal
+            let tradeType = String(xml["ownershipDocument", "nonDerivativeTable", "nonDerivativeTransaction", 0, "transactionAmounts", "transactionAcquiredDisposedCode", "value"].text ?? "--")
             let tradePrice = String(xml["ownershipDocument", "nonDerivativeTable", "nonDerivativeTransaction", 0, "transactionAmounts", "transactionPricePerShare", "value"].text ?? "--")
             let tradeQty = String(xml["ownershipDocument", "nonDerivativeTable", "nonDerivativeTransaction", 0, "transactionAmounts", "transactionShares", "value"].text ?? "")
             let stockCountOwnedAfter = String(xml["ownershipDocument", "nonDerivativeTable", "nonDerivativeTransaction", 0, "postTransactionAmounts", "sharesOwnedFollowingTransaction", "value"].text ?? "")
@@ -52,23 +51,31 @@ class Form4XMLParser: NSObject {
             // TODO: Calculate percentage change: Formula is value/(tradeTotalAfter-value) X 100
 //            let stockCountPercentChange = valueOfStockInDollars == "--" ?? "--" : (Double(valueOfStockInDollars) / ())
             
-            print(ticker)
-            print(companyName)
-            print(insiderName)
-            print(isDirector)
-            print(isOfficer)
-            print(isTenPercentOwner)
-            print(isOther)
-            print(officerTitle)
-            print(tradeInfo)
-            print(tradePrice) //fail
-            print(tradeQty)
-            print(stockCountOwnedAfter)
-            print(valueOfStockInDollars) //fail
+            var companyPositions: [String] = []
+            if isDirector == "1" { companyPositions.append("Director") }
+            if isOfficer == "1" { companyPositions.append("Officer") }
+            if isTenPercentOwner == "1" { companyPositions.append("10% Owner") }
+//            TODO: get the other's name   if isOther == "1" { companyPositions.append("Director") }
+            if officerTitle != "" { companyPositions.append(officerTitle) }
             
+            let tradeDetails = xmlResult.init(ticker: ticker, companyName: companyName, insiderName: insiderName, companyPosition: companyPositions, tradeType: tradeType, tradePrice: tradePrice, tradeQty: tradeQty, stockCountOwnedAfter: stockCountOwnedAfter, valueOfStockInDollars: valueOfStockInDollars, stockCountPercentChange: "unimplemented")
             
-            completionHandler("delegate.song", "delegate.artist", nil)
+            completionHandler(tradeDetails, nil)
         }
         task.resume()
     }
+}
+
+
+struct xmlResult{
+    var ticker: String?
+    var companyName: String?
+    var insiderName: String?
+    var companyPosition: [String]?
+    var tradeType: String?
+    var tradePrice: String?
+    var tradeQty: String?
+    var stockCountOwnedAfter: String?
+    var valueOfStockInDollars: String?
+    var stockCountPercentChange: String?
 }
