@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,7 @@
 		CB4D067C25B8AA6C00C4AB18 /* InsiderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D067B25B8AA6C00C4AB18 /* InsiderTests.swift */; };
 		CB4D068725B8AA6C00C4AB18 /* InsiderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D068625B8AA6C00C4AB18 /* InsiderUITests.swift */; };
 		CB4D06A325B8AB4000C4AB18 /* SECapi.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D06A225B8AB4000C4AB18 /* SECapi.swift */; };
+		CB4D06BF25BD566700C4AB18 /* Form4XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D06BE25BD566700C4AB18 /* Form4XMLParser.swift */; };
 		FBBE51FF8DE816F488E8F5C7 /* Pods_Insider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1D83398D192CC414A391191 /* Pods_Insider.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		CB4D068625B8AA6C00C4AB18 /* InsiderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsiderUITests.swift; sourceTree = "<group>"; };
 		CB4D068825B8AA6C00C4AB18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB4D06A225B8AB4000C4AB18 /* SECapi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SECapi.swift; sourceTree = "<group>"; };
+		CB4D06BE25BD566700C4AB18 /* Form4XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Form4XMLParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +107,6 @@
 				11B6FBC3E43F0D3DDC58CE7A /* Pods-InsiderTests.debug.xcconfig */,
 				187E3EEE4933C10E1F032B74 /* Pods-InsiderTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -147,6 +148,7 @@
 				CB4D066725B8AA6900C4AB18 /* Main.storyboard */,
 				CB4D066525B8AA6900C4AB18 /* ViewController.swift */,
 				CB4D06A225B8AB4000C4AB18 /* SECapi.swift */,
+				CB4D06BE25BD566700C4AB18 /* Form4XMLParser.swift */,
 				CB4D066125B8AA6900C4AB18 /* AppDelegate.swift */,
 				CB4D066325B8AA6900C4AB18 /* SceneDelegate.swift */,
 				CB4D066D25B8AA6B00C4AB18 /* Assets.xcassets */,
@@ -414,6 +416,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB4D066625B8AA6900C4AB18 /* ViewController.swift in Sources */,
+				CB4D06BF25BD566700C4AB18 /* Form4XMLParser.swift in Sources */,
 				CB4D066225B8AA6900C4AB18 /* AppDelegate.swift in Sources */,
 				CB4D066C25B8AA6900C4AB18 /* Insider.xcdatamodeld in Sources */,
 				CB4D066425B8AA6900C4AB18 /* SceneDelegate.swift in Sources */,
