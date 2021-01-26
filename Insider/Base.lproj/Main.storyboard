@@ -200,6 +200,14 @@
                             <outlet property="delegate" destination="qqg-vW-wpn" id="qTW-Kj-aid"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="DButton" destination="A4J-VB-gHH" id="avW-2e-gkW"/>
+                        <outlet property="MButton" destination="OLh-V4-UmV" id="Yyb-6N-oho"/>
+                        <outlet property="WButton" destination="wv1-x2-CL8" id="Rmu-73-diC"/>
+                        <outlet property="YButton" destination="am2-ry-HaJ" id="AmI-9Q-O7K"/>
+                        <outlet property="recentButton" destination="HM7-It-q0D" id="X8o-CI-FM7"/>
+                        <outlet property="topNavBar" destination="1gG-wA-Ami" id="zzR-9M-XK1"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIM-dg-bly" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -9,41 +9,69 @@ import UIKit
 
 class MainTVC: UITableViewController {
     
+    @IBOutlet weak var topNavBar: UIImageView!
+    @IBOutlet weak var recentButton: UIButton!
+    @IBOutlet weak var DButton: UIButton!
+    @IBOutlet weak var WButton: UIButton!
+    @IBOutlet weak var MButton: UIButton!
+    @IBOutlet weak var YButton: UIButton!
+    
     let sec = SECapi()
     var tradeInformations: [TradeInformation] = []
     let date = Date()
     let calendar = Calendar.current
     
     @IBAction func recentClicked(_ sender: Any) {
-        changeFilter(-1)
-        populateTable()
+        animateSlider(recentButton.center.x)
+        changeFilterAndRepopulate(-1)
     }
     @IBAction func DClicked(_ sender: Any) {
-        changeFilter(1)
-        populateTable()
+        animateSlider(DButton.center.x)
+        changeFilterAndRepopulate(1)
     }
     @IBAction func WClicked(_ sender: Any) {
-        changeFilter(7)
-        populateTable()
+        animateSlider(WButton.center.x)
+        changeFilterAndRepopulate(7)
     }
     @IBAction func MClicked(_ sender: Any) {
-        changeFilter(30)
-        populateTable()
+        animateSlider(MButton.center.x)
+        changeFilterAndRepopulate(30)
     }
     @IBAction func YClicked(_ sender: Any) {
-        changeFilter(360)
-        populateTable()
+        animateSlider(YButton.center.x)
+        changeFilterAndRepopulate(360)
     }
     
-    func changeFilter(_ daysToChangeBy: Int){
+    func animateSlider(_ destinationX: CGFloat){
+        UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
+            self.topNavBar.center.x = destinationX
+        }, completion: nil)
+    }
+    
+    func changeFilterAndRepopulate(_ daysToChangeBy: Int){
         if daysToChangeBy == -1{
             sec.filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\")"
         }else{
             let day = calendar.component(.day, from: date)
+            let stringDay: String = (String(day).count == 1) ? ("0" + String(day)) : String(day)
             let month = calendar.component(.month, from: date)
+            let stringMonth: String = (String(month).count == 1) ? ("0" + String(month)) : String(month)
             let year = calendar.component(.year, from: date)
-            sec.filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[\(String(year))-\(String(month))-\(String(day-daysToChangeBy))TO\(String(year))-\(String(month))-\(String(day))]"
+            
+            var goToDay = 0
+            var goToMonth = 0
+            var goToYear = 0
+            if day - daysToChangeBy < 1{
+                goToMonth = month - 1
+                if goToMonth < 1{
+                    goToYear = year - 1
+                }
+                goToDay = day % 31
+            }
+            
+            sec.filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[\(String(goToYear))-\(String(goToMonth))-\(String(goToDay))TO\(String(year))-\(stringMonth)-\(stringDay)]"
         }
+        populateTable()
     }
     
     override func viewDidLoad() {
@@ -60,6 +88,7 @@ class MainTVC: UITableViewController {
         sec.callAPI(){ [weak self] success, result, httpResponseStatusCode in
             switch success{
             case true:
+                self!.tradeInformations = []
                 self!.tradeInformations = result
                 DispatchQueue.main.async {
                     self!.tableView?.reloadData()

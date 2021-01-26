@@ -9,7 +9,8 @@ import Starscream
 import Alamofire
 
 class SECapi: NSObject {
-    var filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[2021-01-01 TO 2021-01-24]"
+//    var filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[2021-01-01 TO 2021-01-24]"
+    var filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\")"
     let payload : Dictionary<String, Any>
     let start = 0
     let end = 20
