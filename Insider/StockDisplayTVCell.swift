@@ -22,7 +22,7 @@ class StockDisplayTVCell: UITableViewCell {
         companyTicker.text = tradeInfo.ticker
         if let stockInDollars = tradeInfo.valueOfStockInDollars{
             stockTotalDollars.text = "$" + stockInDollars
-        }else{ stockTotalDollars.text = "---" }
+        }
         companyName.text = tradeInfo.companyName
         insiderName.text = tradeInfo.insiderName
         dollarChange.text = tradeInfo.tradeQty

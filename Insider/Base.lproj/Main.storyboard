@@ -29,6 +29,9 @@
                                     <state key="normal" title="Recent">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
+                                    <connections>
+                                        <action selector="recentClicked:" destination="qqg-vW-wpn" eventType="touchUpInside" id="GBg-P2-ynI"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4J-VB-gHH">
                                     <rect key="frame" x="122" y="44" width="30" height="30"/>
@@ -36,6 +39,9 @@
                                     <state key="normal" title="1D">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
+                                    <connections>
+                                        <action selector="DClicked:" destination="qqg-vW-wpn" eventType="touchUpInside" id="s9P-cu-neO"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wv1-x2-CL8">
                                     <rect key="frame" x="192" y="44" width="30" height="30"/>
@@ -43,6 +49,9 @@
                                     <state key="normal" title="1W">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
+                                    <connections>
+                                        <action selector="WClicked:" destination="qqg-vW-wpn" eventType="touchUpInside" id="M1c-4I-Q6b"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLh-V4-UmV">
                                     <rect key="frame" x="262" y="44" width="30" height="30"/>
@@ -50,6 +59,9 @@
                                     <state key="normal" title="1M">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
+                                    <connections>
+                                        <action selector="MClicked:" destination="qqg-vW-wpn" eventType="touchUpInside" id="AmD-MU-Xuw"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="am2-ry-HaJ">
                                     <rect key="frame" x="332" y="44" width="30" height="30"/>
@@ -57,6 +69,9 @@
                                     <state key="normal" title="1Y">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
+                                    <connections>
+                                        <action selector="YClicked:" destination="qqg-vW-wpn" eventType="touchUpInside" id="hlM-ag-cgx"/>
+                                    </connections>
                                 </button>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1gG-wA-Ami">
                                     <rect key="frame" x="22" y="71" width="70" height="3"/>

@@ -9,7 +9,7 @@ import Starscream
 import Alamofire
 
 class SECapi: NSObject {
-    let filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[2021-01-01 TO 2021-01-24]"
+    var filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[2021-01-01 TO 2021-01-24]"
     let payload : Dictionary<String, Any>
     let start = 0
     let end = 20
@@ -67,7 +67,6 @@ class SECapi: NSObject {
                     self.getXML(xmlURL){ (tradeInfo) in
                         if tradeInfo != nil{
                             tradeInformations.append(tradeInfo!)
-                            print(tradeInformations)
                         }
                         counter -= 1
                         if counter == 0{

@@ -23,6 +23,8 @@ class Form4XMLParser: NSObject {
             let xmlString = String(decoding: data, as: UTF8.self)
             let xml = try! XML.parse(xmlString)
             
+            print(xmlString)
+            
             // access xml element
             let ticker = String(xml["ownershipDocument", "issuer", "issuerTradingSymbol"].text ?? "")
             let companyName = String(xml["ownershipDocument", "issuer", "issuerName"].text ?? "")
@@ -43,7 +45,7 @@ class Form4XMLParser: NSObject {
             let stockCountOwnedAfter = String(xml["ownershipDocument", "nonDerivativeTable", "nonDerivativeTransaction", 0, "postTransactionAmounts", "sharesOwnedFollowingTransaction", "value"].text ?? "")
             var valueOfStockInDollars = String((Double(tradePrice) ?? 0) * (Double(tradeQty) ?? 0))
             if valueOfStockInDollars == "0.0"{
-                valueOfStockInDollars = "--"
+                valueOfStockInDollars = "---"
             }
             
             // TODO: Calculate percentage change: Formula is value/(tradeTotalAfter-value) X 100
