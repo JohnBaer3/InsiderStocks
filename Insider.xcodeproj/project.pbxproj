@@ -151,9 +151,9 @@
 			children = (
 				CB4D066725B8AA6900C4AB18 /* Main.storyboard */,
 				CB4D06D825BF7FE700C4AB18 /* MainTVC.swift */,
-				CB4D06DD25BF83EE00C4AB18 /* StockDisplayTVCell.swift */,
 				CB4D06A225B8AB4000C4AB18 /* SECapi.swift */,
 				CB4D06BE25BD566700C4AB18 /* Form4XMLParser.swift */,
+				CB4D06DD25BF83EE00C4AB18 /* StockDisplayTVCell.swift */,
 				CB4D06E825BF88F300C4AB18 /* TradeInformation.swift */,
 				CB4D066125B8AA6900C4AB18 /* AppDelegate.swift */,
 				CB4D066325B8AA6900C4AB18 /* SceneDelegate.swift */,

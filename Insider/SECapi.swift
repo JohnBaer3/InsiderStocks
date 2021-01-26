@@ -10,7 +10,6 @@ import Alamofire
 
 class SECapi: NSObject {
     let filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[2019-07-01 TO 2019-08-01]"
-    
     let payload : Dictionary<String, Any>
     let start = 3
     let end = 5
@@ -37,41 +36,48 @@ class SECapi: NSObject {
         ]
     }
     
-    func getXML(){
-        let xmlURL = "https://www.sec.gov/Archives/edgar/data/911614/000120919119044127/doc4.xml"
-        
+    
+    func getXML(_ xmlURL: String, _ completionHandler:@escaping (_ tradeDetails: TradeInformation?) -> Void){
         Form4XMLParser.parseXML(xmlURL) { tradeDetails, error in
-            guard let tradeDetails = tradeDetails, error == nil else {
+            if let tradeDetails = tradeDetails, error == nil {
+                 completionHandler(tradeDetails)
+            }else{
                 print(error ?? "Unknown error")
-                return
             }
+            return nil
         }
     }
     
     
     
-    func callAPI(_ completionHandler:@escaping (_ success:Bool,_ response:String,_ httpResponseStatusCode:Int) -> Void){
+    func callAPI(_ completion:@escaping (_ success:Bool,_ response:[TradeInformation],_ httpResponseStatusCode:Int) -> Void){
         AF.request(API, method: .post, parameters: payload, encoding: JSONEncoding.default, headers: headers).responseJSON {
         response in
-        switch response.result {
+            switch response.result {
             case .success(let value):
-                do {
-                    //Decode from .utf-8
-                    let responseD = value as! NSDictionary
-                                        
-                    let jsonDictionary = (((responseD["filings"] as! NSArray)[0]) as! NSDictionary)
+                let responseD = value as! NSDictionary
+                let responseDArr = responseD["filings"] as! NSArray
+                var tradeInformations: [TradeInformation] = []
+                var counter = responseDArr.count
+                
+                for jsonIter in responseDArr{
+                    let jsonDictionary = jsonIter as! NSDictionary
                     let websiteBlock = jsonDictionary["documentFormatFiles"] as! NSArray
                     let xmlURL = (websiteBlock[1] as! NSDictionary)["documentUrl"] as! String
-//                    getXML(xmlURL)
-                    
-                } catch let myJSONError {
-                    print("oops! error")
-                    print(myJSONError)
-                }
-
+                    self.getXML(xmlURL){ (tradeInfo) in
+                        if tradeInfo != nil{
+                            tradeInformations.append(tradeInfo!)
+                            print(tradeInformations)
+                        }
+                        counter -= 1
+                        if counter == 0{
+                            completion(true, tradeInformations, 0)
+                        }
+                    }
+                }                
+   
                 break
             case .failure(let error):
-
                 print(error)
             }
         }

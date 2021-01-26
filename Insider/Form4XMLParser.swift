@@ -10,11 +10,9 @@ import SwiftyXMLParser
 
 class Form4XMLParser: NSObject {
     
-    class func parseXML(_ xmlURL: String, completionHandler: @escaping (TradeInformation?, Error?) -> Void) {
+    class func parseXML(_ xmlURL: String, completionHandler: @escaping (TradeInformation?, Error?) -> TradeInformation?) {
         let url = URL(string: xmlURL)!
-        
-        //open the xml -> get the data from
-        
+                
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 DispatchQueue.main.async {
@@ -24,7 +22,7 @@ class Form4XMLParser: NSObject {
             }
             let xmlString = String(decoding: data, as: UTF8.self)
             let xml = try! XML.parse(xmlString)
-
+            
             // access xml element
             let ticker = String(xml["ownershipDocument", "issuer", "issuerTradingSymbol"].text ?? "")
             let companyName = String(xml["ownershipDocument", "issuer", "issuerName"].text ?? "")
@@ -59,7 +57,7 @@ class Form4XMLParser: NSObject {
             if officerTitle != "" { companyPositions.append(officerTitle) }
             
             let tradeDetails = TradeInformation.init(ticker: ticker, companyName: companyName, insiderName: insiderName, companyPosition: companyPositions, tradeType: tradeType, tradePrice: tradePrice, tradeQty: tradeQty, stockCountOwnedAfter: stockCountOwnedAfter, valueOfStockInDollars: valueOfStockInDollars, stockCountPercentChange: "unimplemented")
-            
+                        
             completionHandler(tradeDetails, nil)
         }
         task.resume()
