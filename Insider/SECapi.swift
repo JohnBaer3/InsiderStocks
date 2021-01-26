@@ -20,7 +20,6 @@ class SECapi: NSObject {
     
     let headers: HTTPHeaders = [
         "Content-Type": "application/json; charset=utf-8",
-//        "Content-Length": "20000"
     ]
     
 

@@ -46,6 +46,9 @@ class Form4XMLParser: NSObject {
             var valueOfStockInDollars = String((Double(tradePrice) ?? 0) * (Double(tradeQty) ?? 0))
             if valueOfStockInDollars == "0.0"{
                 valueOfStockInDollars = "---"
+            }else{
+                let doubleDollars = Double(valueOfStockInDollars)
+                valueOfStockInDollars = String(format: "%.2f", doubleDollars as! CVarArg)
             }
             
             // TODO: Calculate percentage change: Formula is value/(tradeTotalAfter-value) X 100
