@@ -9,13 +9,16 @@ import Starscream
 import Alamofire
 
 class SECapi: NSObject {
+    let date = Date()
+    let calendar = Calendar.current
+    
 //    var filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[2021-01-01 TO 2021-01-24]"
     var filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\")"
     let payload : Dictionary<String, Any>
     let start = 0
-    let end = 20
+    let end = 2
     let sort = [["filedAt": ["order": "desc"]]]
-    let TOKEN = "8d1ba108179545e960eabcf12a5ce41dad07cdaa85c0ee6993323f52f4ee838a"
+    let TOKEN = "fa240330da4e70f44f6a147121358f82e8e27d8d3d5c470edc6c77940300b6fa"
     let API: URL
     
     let headers: HTTPHeaders = [
@@ -27,14 +30,44 @@ class SECapi: NSObject {
         self.API = URL(string: "https://api.sec-api.io?token=" + TOKEN)!
         
         self.payload = [
-            "query": [
-                "query_string": ["query": filter]
-            ],
+            "query": ["query_string": ["query": filter]],
             "from": start,
             "size": end,
             "sort": sort
         ]
     }
+    
+    
+    func changeFilter(_ daysToChangeBy: Int){
+        if daysToChangeBy == -1{
+            filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\")"
+        }else{
+            let day = calendar.component(.day, from: date)
+            let stringDay: String = (String(day).count == 1) ? ("0" + String(day-1)) : String(day)
+            let month = calendar.component(.month, from: date)
+            let stringMonth: String = (String(month).count == 1) ? ("0" + String(month)) : String(month)
+            let year = calendar.component(.year, from: date)
+            
+            var goToDay = 0
+            var goToMonth = 0
+            var goToYear = 0
+            if day - daysToChangeBy < 1{
+                goToMonth = month - 1
+                if goToMonth < 1{
+                    goToYear = year - 1
+                }
+                goToDay = day % 31
+            }
+            
+            filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[\(String(goToYear))-\(String(goToMonth))-\(String(goToDay))]"
+            
+//            filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[\(String(year))-\(stringMonth)-\(stringDay)TO\(String(goToYear))-\(String(goToMonth))-\(String(goToDay))]"
+//            payload["query"]["query_string"]["query"] = filter
+            
+            //
+        }
+    }
+    
     
     
     func getXML(_ xmlURL: String, _ completionHandler:@escaping (_ tradeDetails: TradeInformation?) -> Void){
@@ -51,11 +84,16 @@ class SECapi: NSObject {
     
     
     func callAPI(_ completion:@escaping (_ success:Bool,_ response:[TradeInformation],_ httpResponseStatusCode:Int) -> Void){
+        
+        print(self.filter)
+        
         AF.request(API, method: .post, parameters: payload, encoding: JSONEncoding.default, headers: headers).responseJSON {
         response in
             switch response.result {
             case .success(let value):
+                //Catch this
                 let responseD = value as! NSDictionary
+                //Also catch this
                 let responseDArr = responseD["filings"] as! NSArray
                 var tradeInformations: [TradeInformation] = []
                 var counter = responseDArr.count
@@ -73,8 +111,7 @@ class SECapi: NSObject {
                             completion(true, tradeInformations, 0)
                         }
                     }
-                }                
-   
+                }
                 break
             case .failure(let error):
                 print(error)

@@ -150,11 +150,10 @@
 			isa = PBXGroup;
 			children = (
 				CB4D066725B8AA6900C4AB18 /* Main.storyboard */,
-				CB4D06D825BF7FE700C4AB18 /* MainTVC.swift */,
-				CB4D06A225B8AB4000C4AB18 /* SECapi.swift */,
-				CB4D06BE25BD566700C4AB18 /* Form4XMLParser.swift */,
-				CB4D06DD25BF83EE00C4AB18 /* StockDisplayTVCell.swift */,
-				CB4D06E825BF88F300C4AB18 /* TradeInformation.swift */,
+				CB4D071D25C09F4600C4AB18 /* VCs */,
+				CB4D072325C09F7500C4AB18 /* Controllers */,
+				CB4D071F25C09F5400C4AB18 /* SmallerViews */,
+				CB4D071E25C09F4D00C4AB18 /* Models */,
 				CB4D066125B8AA6900C4AB18 /* AppDelegate.swift */,
 				CB4D066325B8AA6900C4AB18 /* SceneDelegate.swift */,
 				CB4D066D25B8AA6B00C4AB18 /* Assets.xcassets */,
@@ -181,6 +180,39 @@
 				CB4D068825B8AA6C00C4AB18 /* Info.plist */,
 			);
 			path = InsiderUITests;
+			sourceTree = "<group>";
+		};
+		CB4D071D25C09F4600C4AB18 /* VCs */ = {
+			isa = PBXGroup;
+			children = (
+				CB4D06D825BF7FE700C4AB18 /* MainTVC.swift */,
+			);
+			path = VCs;
+			sourceTree = "<group>";
+		};
+		CB4D071E25C09F4D00C4AB18 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CB4D06E825BF88F300C4AB18 /* TradeInformation.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CB4D071F25C09F5400C4AB18 /* SmallerViews */ = {
+			isa = PBXGroup;
+			children = (
+				CB4D06DD25BF83EE00C4AB18 /* StockDisplayTVCell.swift */,
+			);
+			path = SmallerViews;
+			sourceTree = "<group>";
+		};
+		CB4D072325C09F7500C4AB18 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CB4D06A225B8AB4000C4AB18 /* SECapi.swift */,
+				CB4D06BE25BD566700C4AB18 /* Form4XMLParser.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -608,6 +640,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MYKB7T756Z;
 				INFOPLIST_FILE = Insider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -628,6 +661,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MYKB7T756Z;
 				INFOPLIST_FILE = Insider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
