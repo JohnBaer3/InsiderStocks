@@ -9,10 +9,10 @@ import Starscream
 import Alamofire
 
 class SECapi: NSObject {
-    let filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[2019-07-01 TO 2019-08-01]"
+    let filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[2021-01-01 TO 2021-01-24]"
     let payload : Dictionary<String, Any>
-    let start = 3
-    let end = 5
+    let start = 0
+    let end = 20
     let sort = [["filedAt": ["order": "desc"]]]
     let TOKEN = "8d1ba108179545e960eabcf12a5ce41dad07cdaa85c0ee6993323f52f4ee838a"
     let API: URL
