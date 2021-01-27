@@ -209,6 +209,7 @@
                         <outlet property="WButton" destination="wv1-x2-CL8" id="Rmu-73-diC"/>
                         <outlet property="YButton" destination="am2-ry-HaJ" id="AmI-9Q-O7K"/>
                         <outlet property="recentButton" destination="HM7-It-q0D" id="X8o-CI-FM7"/>
+                        <outlet property="searchBar" destination="Ic0-BJ-d2K" id="DBo-d7-5Hs"/>
                         <outlet property="topNavBar" destination="1gG-wA-Ami" id="zzR-9M-XK1"/>
                     </connections>
                 </tableViewController>

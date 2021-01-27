@@ -28,7 +28,13 @@ class StockDisplayTVCell: UITableViewCell {
         dollarChange.text = tradeInfo.tradeQty
         let companyPositionText = companyPositions(tradeInfo.companyPosition)
         insiderPosition.text = companyPositionText
-        percentChange.text = "TBD"
+        
+        var percentChangeText = ""
+        if tradeInfo.tradeType == "A"{ percentChangeText += "+"
+        }else{ percentChangeText += "-" }
+        percentChangeText += tradeInfo.stockCountPercentChange ?? "---"
+        percentChangeText += "%"
+        percentChange.text = percentChangeText
         
         fixCosmetics(tradeInfo.tradeType)
     }

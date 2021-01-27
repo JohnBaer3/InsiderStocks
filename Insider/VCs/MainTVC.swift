@@ -9,6 +9,7 @@ import UIKit
 
 class MainTVC: UITableViewController {
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var topNavBar: UIImageView!
     @IBOutlet weak var recentButton: UIButton!
     @IBOutlet weak var DButton: UIButton!
@@ -65,7 +66,9 @@ class MainTVC: UITableViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        populateTable()
+        
+        self.searchBar.delegate = self
+//        populateTable()
     }
     
     
@@ -110,5 +113,13 @@ class MainTVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "stockDisplayTVCell", for: indexPath) as! StockDisplayTVCell
         cell.populate(tradeInformations[indexPath.row])
         return cell
+    }
+}
+
+
+extension MainTVC: UISearchBarDelegate{
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        sec.changeFilterToSearchTerm(searchBar.text ?? "")
+        populateTable()
     }
 }

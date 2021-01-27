@@ -14,9 +14,9 @@ class SECapi: NSObject {
     
 //    var filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[2021-01-01 TO 2021-01-24]"
     var filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\")"
-    let payload : Dictionary<String, Any>
+    var payload : Dictionary<String, Any>
     let start = 0
-    let end = 2
+    let end = 20
     let sort = [["filedAt": ["order": "desc"]]]
     let TOKEN = "fa240330da4e70f44f6a147121358f82e8e27d8d3d5c470edc6c77940300b6fa"
     let API: URL
@@ -43,29 +43,44 @@ class SECapi: NSObject {
             filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\")"
         }else{
             let day = calendar.component(.day, from: date)
-            let stringDay: String = (String(day).count == 1) ? ("0" + String(day-1)) : String(day)
+            let stringDay: String = (String(day).count == 1) ? ("0" + String(day)) : String(day)
             let month = calendar.component(.month, from: date)
             let stringMonth: String = (String(month).count == 1) ? ("0" + String(month)) : String(month)
             let year = calendar.component(.year, from: date)
             
-            var goToDay = 0
-            var goToMonth = 0
-            var goToYear = 0
-            if day - daysToChangeBy < 1{
+            var goToDay = day - daysToChangeBy
+            var goToMonth = month
+            var goToYear = year
+            if day < 1{
                 goToMonth = month - 1
                 if goToMonth < 1{
+                    goToMonth = 12
                     goToYear = year - 1
                 }
                 goToDay = day % 31
             }
+            let stringGotoDay: String = (String(goToDay).count == 1) ? ("0" + String(goToDay)) : String(goToDay)
+            let stringGotoMonth: String = (String(goToMonth).count == 1) ? ("0" + String(goToMonth)) : String(goToMonth)
             
-            filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[\(String(goToYear))-\(String(goToMonth))-\(String(goToDay))]"
+            filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[\(String(goToYear))-\(stringGotoMonth)-\(stringGotoDay) TO \(String(year))-\(stringMonth)-\(stringDay)]"
             
-//            filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[\(String(year))-\(stringMonth)-\(stringDay)TO\(String(goToYear))-\(String(goToMonth))-\(String(goToDay))]"
-//            payload["query"]["query_string"]["query"] = filter
-            
-            //
+            self.payload = [
+                "query": ["query_string": ["query": filter]],
+                "from": start,
+                "size": end,
+                "sort": sort
+            ]
         }
+    }
+    
+    func changeFilterToSearchTerm(_ searchTerm: String){
+        let filterTerm: String = "ticker:\(searchTerm) AND formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\")"
+        self.payload = [
+            "query": ["query_string": ["query": filterTerm]],
+            "from": start,
+            "size": end,
+            "sort": sort
+        ]
     }
     
     
@@ -84,8 +99,7 @@ class SECapi: NSObject {
     
     
     func callAPI(_ completion:@escaping (_ success:Bool,_ response:[TradeInformation],_ httpResponseStatusCode:Int) -> Void){
-        
-        print(self.filter)
+        print(payload)
         
         AF.request(API, method: .post, parameters: payload, encoding: JSONEncoding.default, headers: headers).responseJSON {
         response in
