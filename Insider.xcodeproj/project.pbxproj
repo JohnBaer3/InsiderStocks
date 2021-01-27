@@ -22,6 +22,7 @@
 		CB4D06D925BF7FE700C4AB18 /* MainTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D06D825BF7FE700C4AB18 /* MainTVC.swift */; };
 		CB4D06DE25BF83EE00C4AB18 /* StockDisplayTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D06DD25BF83EE00C4AB18 /* StockDisplayTVCell.swift */; };
 		CB4D06E925BF88F300C4AB18 /* TradeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D06E825BF88F300C4AB18 /* TradeInformation.swift */; };
+		CB4D074325C13D0000C4AB18 /* IndividualStockVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D074225C13CFF00C4AB18 /* IndividualStockVC.swift */; };
 		FBBE51FF8DE816F488E8F5C7 /* Pods_Insider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1D83398D192CC414A391191 /* Pods_Insider.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		CB4D06D825BF7FE700C4AB18 /* MainTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTVC.swift; sourceTree = "<group>"; };
 		CB4D06DD25BF83EE00C4AB18 /* StockDisplayTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDisplayTVCell.swift; sourceTree = "<group>"; };
 		CB4D06E825BF88F300C4AB18 /* TradeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeInformation.swift; sourceTree = "<group>"; };
+		CB4D074225C13CFF00C4AB18 /* IndividualStockVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndividualStockVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				CB4D06D825BF7FE700C4AB18 /* MainTVC.swift */,
+				CB4D074225C13CFF00C4AB18 /* IndividualStockVC.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				CB4D06A325B8AB4000C4AB18 /* SECapi.swift in Sources */,
 				CB4D06DE25BF83EE00C4AB18 /* StockDisplayTVCell.swift in Sources */,
 				CB4D06E925BF88F300C4AB18 /* TradeInformation.swift in Sources */,
+				CB4D074325C13D0000C4AB18 /* IndividualStockVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

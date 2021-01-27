@@ -20,6 +20,7 @@ class MainTVC: UITableViewController {
     let sec = SECapi()
     var tradeInformations: [TradeInformation] = []
     
+    
     var indicator = UIActivityIndicatorView()
     private var isLoading = false{
         didSet{
@@ -68,7 +69,7 @@ class MainTVC: UITableViewController {
         tableView.dataSource = self
         
         self.searchBar.delegate = self
-//        populateTable()
+        populateTable()
     }
     
     
@@ -103,7 +104,6 @@ class MainTVC: UITableViewController {
             }
         }
     }
-
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tradeInformations.count
@@ -113,6 +113,13 @@ class MainTVC: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "stockDisplayTVCell", for: indexPath) as! StockDisplayTVCell
         cell.populate(tradeInformations[indexPath.row])
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tradeInfoForCell = tradeInformations[indexPath.row]
+        let nextVC = IndividualStockVC()
+        nextVC.tradeInfo = tradeInfoForCell
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 
