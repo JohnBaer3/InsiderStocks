@@ -6,14 +6,16 @@
 //
 
 import UIKit
+import Charts
+import TinyConstraints
 
-class IndividualStockVC: UIViewController {
+class IndividualStockVC: UIViewController, ChartViewDelegate {
 
     @IBOutlet weak var companyTicker: UILabel!
     @IBOutlet weak var companyName: UILabel!
     @IBOutlet weak var openTradePrice: UILabel!
     @IBOutlet weak var tradeHighPrice: UILabel!
-    @IBOutlet weak var stockGraphImageView: UIImageView!
+    @IBOutlet weak var stockChartView: UIView!
     @IBOutlet weak var insiderName: UILabel!
     @IBOutlet weak var insiderPositions: UILabel!
     @IBOutlet weak var totalStockOwnedPrice: UILabel!
@@ -25,6 +27,11 @@ class IndividualStockVC: UIViewController {
     let alphaVantage = AlphaVantageAPI()
     var tradeInfo: TradeInformation? = nil
     
+    lazy var stockChart: LineChartView = {
+        let chartView = LineChartView()
+        chartView.backgroundColor = .systemBlue
+        return chartView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,20 +39,33 @@ class IndividualStockVC: UIViewController {
         let tempTradeInfo: TradeInformation = TradeInformation(ticker: Optional("PPL"), companyName: Optional("PPL Corp"), insiderName: Optional("Bergstein Joseph P Jr"), companyPosition: Optional(["Officer", "SVP and CFO"]), tradeType: Optional("A"), tradePrice: Optional("28.11"), tradeQty: Optional("1372"), stockCountOwnedAfter: Optional("14270.386"), valueOfStockInDollars: Optional("38566.92"), stockCountPercentChange: Optional("10.64"))
         tradeInfo = tempTradeInfo
         
+        
+        makeChart()
+        
         populateScreen(tradeInfo)
-        alphaVantage.grabData()
+                
+        alphaVantage.grabData(){ success, open, high, close, chartDatas in
+            switch success{
+            case true:
+                DispatchQueue.main.async {
+                    
+                }
+            case false:
+                print("oops! a fucky wucky!!")
+            }
+        }
+        
+    }
+    
+    func makeChart(){
+        view.addSubview(stockChart)
+        stockChart.centerInSuperview()
+        stockChart.width(to: stockChartView)
+        stockChart.height(to: stockChartView)
     }
     
     
-    
-    
-    
-    
-    
     func populateScreen(_ tradeInfo: TradeInformation?){
-        print(tradeInfo)
-        print("HMMmM")
-        
         companyTicker.text = tradeInfo?.ticker ?? ""
         companyName.text = tradeInfo?.companyName ?? ""
         insiderName.text = tradeInfo?.insiderName ?? ""

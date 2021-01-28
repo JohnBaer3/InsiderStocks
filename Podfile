@@ -10,6 +10,8 @@ target 'Insider' do
   pod "SwiftyXMLParser", :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
 
   pod 'Alamofire', '~> 5.2.2'
+  pod 'Charts'
+  pod 'TinyConstraints'
 
 
 

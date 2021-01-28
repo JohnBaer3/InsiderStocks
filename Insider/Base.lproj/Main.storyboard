@@ -262,10 +262,6 @@
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Yd-EW-XdN">
-                                <rect key="frame" x="35" y="172" width="345" height="284"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Insider Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJ1-2R-7k1">
                                 <rect key="frame" x="35" y="490" width="117" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -330,6 +326,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XPh-TQ-Y4k">
+                                <rect key="frame" x="35" y="174" width="345" height="281"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="uwJ-SI-fk8"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -342,7 +343,7 @@
                         <outlet property="insiderPositions" destination="uZz-Yb-uQs" id="AFD-EW-Ps7"/>
                         <outlet property="openTradePrice" destination="YA1-2J-Dj1" id="7dM-3E-EOy"/>
                         <outlet property="secondTitleLabel" destination="U1S-xZ-76B" id="p3U-6a-Rw8"/>
-                        <outlet property="stockGraphImageView" destination="9Yd-EW-XdN" id="HUe-kM-21X"/>
+                        <outlet property="stockChartView" destination="XPh-TQ-Y4k" id="46M-4a-WJ4"/>
                         <outlet property="totalStockCountOwned" destination="Sfx-mF-whv" id="B6U-Lo-fff"/>
                         <outlet property="totalStockOwnedPrice" destination="Xlk-nJ-BdR" id="pEh-yX-dkX"/>
                         <outlet property="tradeHighPrice" destination="wd9-7t-ih6" id="vsW-yc-grj"/>

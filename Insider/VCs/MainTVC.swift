@@ -90,7 +90,7 @@ class MainTVC: UITableViewController {
     func populateTable(){
         isLoading = true
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            self!.sec.callAPI(){ success, result, httpResponseStatusCode in
+            self?.sec.callAPI(){ success, result, httpResponseStatusCode in
                 switch success{
                 case true:
                     self!.tradeInformations = result
