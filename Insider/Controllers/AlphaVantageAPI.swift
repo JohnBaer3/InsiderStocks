@@ -14,12 +14,13 @@ class AlphaVantageAPI: NSObject {
     let session = URLSession.shared
 
     let AlphaVAPIKey = "XJVXO6EZYER7SP5J"
+    var ticker = ""
     
     let headers = [
         "x-rapidapi-key": "db65a00b87mshdf60744ea72b454p15a6fcjsn6b136dc31291",
         "x-rapidapi-host": "alpha-vantage.p.rapidapi.com"
     ]
-    let request: NSMutableURLRequest
+    var request: NSMutableURLRequest
     
     override init(){
         request = NSMutableURLRequest(url: NSURL(string: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=" + AlphaVAPIKey)! as URL,
@@ -33,6 +34,10 @@ class AlphaVantageAPI: NSObject {
     func grabData(_ completion: @escaping(_ success: Bool, _ open: Double, _ high: Double, _ chartDatas: [ChartDataEntry]) -> Void){
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = headers
+        request = NSMutableURLRequest(url: NSURL(string: "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=\(ticker)&interval=5min&apikey=" + AlphaVAPIKey)! as URL,
+          cachePolicy: .useProtocolCachePolicy,
+          timeoutInterval: 10.0)
+
         var chartDatasToMake: [ChartDataEntry] = []
         
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -48,6 +53,7 @@ class AlphaVantageAPI: NSObject {
                     if let string = String(bytes: data!, encoding: .utf8) {
                         let dict = string.toJSON() as? [String:AnyObject] // can be any type here
                         
+                        //Handle this
                         let timeData = dict?["Time Series (5min)"] as! [String: Any]
                         for timePos in timeData{
                             //parse the last bit out of timePos.key
