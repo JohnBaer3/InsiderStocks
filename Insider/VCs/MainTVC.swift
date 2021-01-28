@@ -93,13 +93,13 @@ class MainTVC: UITableViewController {
             self?.sec.callAPI(){ success, result, httpResponseStatusCode in
                 switch success{
                 case true:
-                    self!.tradeInformations = result
+                    self?.tradeInformations = result
                     DispatchQueue.main.async {
-                        self!.tableView?.reloadData()
-                        self!.isLoading = false
+                        self?.tableView?.reloadData()
+                        self?.isLoading = false
                     }
                 default:
-                    print("oops! a fucky wucky!!")
+                    print("Couldn't grab data from SEC")
                 }
             }
         }

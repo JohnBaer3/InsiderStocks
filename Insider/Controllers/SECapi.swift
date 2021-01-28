@@ -17,7 +17,7 @@ class SECapi: NSObject {
     let start = 0
     let end = 20
     let sort = [["filedAt": ["order": "desc"]]]
-    let TOKEN = "fa240330da4e70f44f6a147121358f82e8e27d8d3d5c470edc6c77940300b6fa"
+    let TOKEN = "cea6596ea7dc9d266963fe2bcdef5f86df59248576515ec3d020616dc97ed34f"
     let API: URL
     
     let headers: HTTPHeaders = [

@@ -26,7 +26,7 @@ class IndividualStockVC: UIViewController, ChartViewDelegate {
     
     let alphaVantage = AlphaVantageAPI()
     var tradeInfo: TradeInformation? = nil
-        let tempTradeInfo: TradeInformation = TradeInformation(ticker: Optional("PPL"), companyName: Optional("PPL Corp"), insiderName: Optional("Bergstein Joseph P Jr"), companyPosition: Optional(["Officer", "SVP and CFO"]), tradeType: Optional("A"), tradePrice: Optional("28.11"), tradeQty: Optional("1372"), stockCountOwnedAfter: Optional("14270.386"), valueOfStockInDollars: Optional("38566.92"), stockCountPercentChange: Optional("10.64"))
+//        let tempTradeInfo: TradeInformation = TradeInformation(ticker: Optional("PPL"), companyName: Optional("PPL Corp"), insiderName: Optional("Bergstein Joseph P Jr"), companyPosition: Optional(["Officer", "SVP and CFO"]), tradeType: Optional("A"), tradePrice: Optional("28.11"), tradeQty: Optional("1372"), stockCountOwnedAfter: Optional("14270.386"), valueOfStockInDollars: Optional("38566.92"), stockCountPercentChange: Optional("10.64"))
 
 
     lazy var stockChart: LineChartView = {
@@ -38,8 +38,7 @@ class IndividualStockVC: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tradeInfo = tempTradeInfo
-
+//        tradeInfo = tempTradeInfo
         
         makeChart()
         populateScreen(tradeInfo)
@@ -56,9 +55,8 @@ class IndividualStockVC: UIViewController, ChartViewDelegate {
     func populateTable(){
         alphaVantage.ticker = String((tradeInfo?.ticker)!)
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            self?.alphaVantage.grabData(){ success, open, high, chartDatas in
-                switch success{
-                case true:
+            self?.alphaVantage.grabData(){ error, open, high, chartDatas in
+                if error == nil{
                     DispatchQueue.main.async {
                         let set1 = LineChartDataSet(entries: chartDatas, label: "yAxis")
                         let data = LineChartData(dataSet: set1)
@@ -66,8 +64,8 @@ class IndividualStockVC: UIViewController, ChartViewDelegate {
                         self?.openTradePrice.text = String(open)
                         self?.tradeHighPrice.text = String(high)
                     }
-                case false:
-                    print("oops! couldn't fetch from AlphaVantage")
+                }else{
+                    print(error)
                 }
             }
         }
