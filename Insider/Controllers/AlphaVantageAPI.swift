@@ -43,6 +43,7 @@ class AlphaVantageAPI: NSObject {
                 } else {
                     var open: Double = 0.0
                     var high: Double = 0.0
+                    var timeToValueDict: [Double: Double] = [:]
                     
                     if let string = String(bytes: data!, encoding: .utf8) {
                         let dict = string.toJSON() as? [String:AnyObject] // can be any type here
@@ -66,11 +67,14 @@ class AlphaVantageAPI: NSObject {
                             if timeInDouble == 39600.00{
                                 open = stockValueDouble!
                             }
-                            
-                            //Add them onto chartDatasArray
-                            chartDatasToMake.append(ChartDataEntry(x: timeInDouble!, y: stockValueDouble!))
+                            timeToValueDict[timeInDouble!] = stockValueDouble
                         }
-                        print(chartDatasToMake)
+                        let sortedDict = Array(timeToValueDict.keys).sorted(by: <)
+                        for time in sortedDict{
+                            chartDatasToMake.append(ChartDataEntry(x: time, y: timeToValueDict[time]!))
+                        }
+                        
+//                        print(chartDatasToMake)
                         completion(true, open, high, chartDatasToMake)
                     } else {
                         print("not a valid UTF-8 sequence")

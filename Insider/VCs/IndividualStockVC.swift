@@ -50,6 +50,8 @@ class IndividualStockVC: UIViewController, ChartViewDelegate {
                     let set1 = LineChartDataSet(entries: chartDatas, label: "yAxis")
                     let data = LineChartData(dataSet: set1)
                     self.stockChart.data = data
+                    self.openTradePrice.text = String(open)
+                    self.tradeHighPrice.text = String(high)
                 }
             case false:
                 print("oops! a fucky wucky!!")
