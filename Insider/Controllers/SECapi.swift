@@ -5,7 +5,6 @@
 //  Created by John Baer on 1/20/21.
 //
 import Foundation
-import Starscream
 import Alamofire
 
 class SECapi: NSObject {
@@ -41,8 +40,9 @@ class SECapi: NSObject {
     func changeFilter(_ daysToChangeBy: Int){
         if daysToChangeBy == -1{
             filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\")"
+            updatePayload(filter)
         }else{
-            let day = calendar.component(.day, from: date)
+            let day = calendar.component(.day, from: date) - 1
             let stringDay: String = (String(day).count == 1) ? ("0" + String(day)) : String(day)
             let month = calendar.component(.month, from: date)
             let stringMonth: String = (String(month).count == 1) ? ("0" + String(month)) : String(month)
@@ -63,20 +63,18 @@ class SECapi: NSObject {
             let stringGotoMonth: String = (String(goToMonth).count == 1) ? ("0" + String(goToMonth)) : String(goToMonth)
             
             filter = "formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\") AND filedAt:[\(String(goToYear))-\(stringGotoMonth)-\(stringGotoDay) TO \(String(year))-\(stringMonth)-\(stringDay)]"
-            
-            self.payload = [
-                "query": ["query_string": ["query": filter]],
-                "from": start,
-                "size": end,
-                "sort": sort
-            ]
+            updatePayload(filter)
         }
     }
     
     func changeFilterToSearchTerm(_ searchTerm: String){
         let filterTerm: String = "ticker:\(searchTerm) AND formType:\"4\" AND formType:(NOT \"N-4\") AND formType:(NOT \"4/A\")"
+        updatePayload(filterTerm)
+    }
+    
+    func updatePayload(_ newFilter: String){
         self.payload = [
-            "query": ["query_string": ["query": filterTerm]],
+            "query": ["query_string": ["query": newFilter]],
             "from": start,
             "size": end,
             "sort": sort
@@ -99,9 +97,7 @@ class SECapi: NSObject {
     
     
     func callAPI(_ completion:@escaping (_ success:Bool,_ response:[TradeInformation],_ httpResponseStatusCode:Int) -> Void){
-        print(payload)
-        
-        AF.request(API, method: .post, parameters: payload, encoding: JSONEncoding.default, headers: headers).responseJSON {
+        AF.request(API, method: .post, parameters: payload, encoding: JSONEncoding.default, headers: headers).responseJSON { [weak self]
         response in
             switch response.result {
             case .success(let value):
@@ -116,7 +112,7 @@ class SECapi: NSObject {
                     let jsonDictionary = jsonIter as! NSDictionary
                     let websiteBlock = jsonDictionary["documentFormatFiles"] as! NSArray
                     let xmlURL = (websiteBlock[1] as! NSDictionary)["documentUrl"] as! String
-                    self.getXML(xmlURL){ (tradeInfo) in
+                    self?.getXML(xmlURL){ (tradeInfo) in
                         if tradeInfo != nil{
                             tradeInformations.append(tradeInfo!)
                         }
