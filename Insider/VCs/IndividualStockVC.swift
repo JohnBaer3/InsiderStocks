@@ -41,14 +41,15 @@ class IndividualStockVC: UIViewController, ChartViewDelegate {
         
         
         makeChart()
-        
         populateScreen(tradeInfo)
                 
-        alphaVantage.grabData(){ success, open, high, close, chartDatas in
+        alphaVantage.grabData(){ success, open, high, chartDatas in
             switch success{
             case true:
                 DispatchQueue.main.async {
-                    
+                    let set1 = LineChartDataSet(entries: chartDatas, label: "yAxis")
+                    let data = LineChartData(dataSet: set1)
+                    self.stockChart.data = data
                 }
             case false:
                 print("oops! a fucky wucky!!")
