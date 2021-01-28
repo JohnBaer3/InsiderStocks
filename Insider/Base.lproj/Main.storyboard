@@ -222,7 +222,7 @@
         <!--Individual StockVC-->
         <scene sceneID="gPD-kK-t37">
             <objects>
-                <viewController id="3dL-20-F2i" customClass="IndividualStockVC" customModule="Insider" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IndividualStockVC" id="3dL-20-F2i" customClass="IndividualStockVC" customModule="Insider" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kw0-Dm-afV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

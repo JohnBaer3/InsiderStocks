@@ -117,7 +117,9 @@ class MainTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tradeInfoForCell = tradeInformations[indexPath.row]
-        let nextVC = IndividualStockVC()
+        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextVC = storyBoard.instantiateViewController(withIdentifier: "IndividualStockVC") as! IndividualStockVC
         nextVC.tradeInfo = tradeInfoForCell
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
